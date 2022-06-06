@@ -9,6 +9,12 @@
 # Declarations
 $vcsa = "vcenter.mydomain.com"
 
+# use only inf SSO is not integrated
+<#
+$vcusername = "administrator@vsphere.local" 
+$vcpassword = "" # not recommended to store in plantext
+#>
+
 # In case of Multiple vCenter Servers use an array
 <#
 $vcsaList = @("vcenter1.mydomain.com", "vcenter2.mydomain.com")
@@ -32,12 +38,12 @@ if(((Get-PowerCLIConfiguration -Scope Session).DefaultVIServerMode) -ne "Multipl
 #>
 
 # Connect to the VCSA
-Connect-VIServer -Server $vcsa
+Connect-VIServer -Server $vcsa # -Protocol https -User $vcusername -Password $vcpassword
 
 # For Multiple VCSAs
 <#
 foreach($vcsa in $vcsaList){
-    Connect-VIServer -Server $_.Name
+    Connect-VIServer -Server $_.Name # -Protocol https -User $vcusername -Password $vcpassword
 }
 #>
 
@@ -65,4 +71,3 @@ foreach($vcsa in $vcsaList){
     Disconnect-VIServer -Server $vcsa -Confirm:$false
 }
 #>
-
