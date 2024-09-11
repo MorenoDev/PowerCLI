@@ -71,5 +71,3 @@ foreach($vcsa in $vcsaList){
     Disconnect-VIServer -Server $vcsa -Confirm:$false
 }
 #>
-
-# Los servidores se van a cambiar
